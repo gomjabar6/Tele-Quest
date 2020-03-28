@@ -45,6 +45,16 @@ html {
   font-family: "Press Start 2P", cursive;
 }
 
+.desc {
+  font-size: 30px;
+  margin: 5vh 0;
+  font-family: "Press Start 2P", cursive;
+}
+
+.desc .numbah {
+  color: blue;
+}
+
 .table-fill {
   max-width: 800px;
   padding: 5px;
