@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterBackend", "CharacterBackend\CharacterBackend.csproj", "{3264450F-535B-4E68-AA32-123370CECC34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3264450F-535B-4E68-AA32-123370CECC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3264450F-535B-4E68-AA32-123370CECC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3264450F-535B-4E68-AA32-123370CECC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3264450F-535B-4E68-AA32-123370CECC34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80EE50CD-2F13-4640-9104-F24BA6DA941F}
+	EndGlobalSection
+EndGlobal

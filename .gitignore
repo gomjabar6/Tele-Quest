@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CharacterBackend/CharacterBackend/Properties/PublishProfiles/TeleQuestBackend - Web Deploy.pubxml
+/CharacterBackend/CharacterBackend/appsettings.json
+/CharacterBackend/CharacterBackend/appsettings.Development.json
