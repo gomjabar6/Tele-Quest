@@ -26,9 +26,9 @@ namespace CharacterBackend.DBContext.Models
             }
             set
             {
-                if (value < 0)
+                if (value < 100)
                 {
-                    _expPoints = 0;
+                    _expPoints = 100;
                 } else
                 {
                     _expPoints = value;
@@ -37,5 +37,6 @@ namespace CharacterBackend.DBContext.Models
         }
 
         public List<Quest> Quests { get; set; }
+        public List<UserRaid> UserRaids { get; set; }
     }
 }
