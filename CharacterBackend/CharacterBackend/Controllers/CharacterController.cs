@@ -39,6 +39,16 @@ namespace CharacterBackend.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            if (user.Username == null)
+            {
+                user.Username = "NONAMENOHOW";
+            }
+
+            if (user.SessionKey == null)
+            {
+                user.SessionKey = "NOSESSION";
+            }
+
             return Ok(user);
         }
 
@@ -78,7 +88,13 @@ namespace CharacterBackend.Controllers
             }
 
             dbUser.PhoneNumber = user.PhoneNumber;
-            dbUser.Username = user.Username;
+
+            if (user.Username != null)
+            {
+                dbUser.Username = user.Username;
+            }
+
+            dbUser.SessionKey = user.SessionKey;
 
             await _context.SaveChangesAsync();
 
