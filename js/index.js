@@ -49,8 +49,8 @@ const json = getJSON(
 
 var getJSON = function(url, callback) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.responseType = "raids";
+  xhr.open("GET", url, true);
+  xhr.responseType = "json";
   xhr.onload = function() {
     var status = xhr.status;
     if (status === 200) {
@@ -70,8 +70,10 @@ const raids = getJSON(
     } else {
       document.getElementById("raidBoss0").innerHTML = data[0].name;
       document.getElementById("sessionId0").innerHTML = data[0].date;
+      document.getElementById("raidReward0").innerHTML = data[0].xpReward;
       document.getElementById("raidBoss1").innerHTML = data[1].name;
       document.getElementById("sessionId1").innerHTML = data[1].date;
+      document.getElementById("raidReward1").innerHTML = data[1].xpReward;
     }
   }
 );
