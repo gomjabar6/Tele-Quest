@@ -50,7 +50,7 @@ namespace CharacterBackend.Controllers
         public async Task<ActionResult> GetLeaderbaord()
         {
             var users = await _context.Users.OrderByDescending(u => u.ExpPoints).Take(10).ToListAsync();
-            users.ForEach(u => u.PhoneNumber = "");
+            //users.ForEach(u => u.PhoneNumber = "");
 
             return Ok(users);
         }

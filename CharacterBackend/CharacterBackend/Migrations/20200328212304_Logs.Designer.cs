@@ -4,14 +4,16 @@ using CharacterBackend.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CharacterBackend.Migrations
 {
     [DbContext(typeof(TeleQuestContext))]
-    partial class TeleQuestContextModelSnapshot : ModelSnapshot
+    [Migration("20200328212304_Logs")]
+    partial class Logs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace CharacterBackend.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UUID")
                         .HasColumnType("nvarchar(max)");
@@ -76,16 +75,10 @@ namespace CharacterBackend.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Success")
                         .HasColumnType("bit");
 
                     b.Property<long>("XpLevel")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("XpPenalty")
                         .HasColumnType("bigint");
 
                     b.Property<long>("XpReward")
@@ -148,9 +141,6 @@ namespace CharacterBackend.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("damage")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

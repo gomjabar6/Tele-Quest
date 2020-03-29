@@ -39,7 +39,7 @@ namespace CharacterBackend.Controllers
             }
 
             quest.UserId = User.Id;
-            quest.Date = DateTime.Now;
+            quest.Date = DateTime.UtcNow;
 
             _context.Quests.Add(quest);
 

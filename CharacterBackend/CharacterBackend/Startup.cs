@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using CharacterBackend.Services;
 
 namespace CharacterBackend
 {
@@ -30,7 +31,7 @@ namespace CharacterBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddXmlSerializerFormatters();
 
             var connection = Configuration.GetConnectionString("DBConnection");
             services.AddDbContext<TeleQuestContext>(options =>
@@ -45,6 +46,9 @@ namespace CharacterBackend
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+
+            services.AddScoped<APIDazeService>();
 
         }
 

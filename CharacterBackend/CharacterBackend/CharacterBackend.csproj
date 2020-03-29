@@ -21,6 +21,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Game\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
