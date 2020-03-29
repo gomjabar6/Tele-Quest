@@ -34,6 +34,22 @@ html {
   text-align: center;
 }
 
+.header_1 {
+  height: 70vh;
+  width: 100%;
+  background-image: url("../assets/bg-dung.jpg");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: "Galada", cursive;
+  overflow: hidden;
+  text-align: center;
+}
+
 .header__logo {
   width: 76px;
   height: 76px;
@@ -41,18 +57,26 @@ html {
 
 .header__title {
   font-size: 66px;
-  margin: 10vh 0;
+  margin: 10vh 4vh 0;
   font-family: "Press Start 2P", cursive;
 }
 
 .desc {
   font-size: 30px;
+  line-height: 50px;
   margin: 5vh 0;
   font-family: "Press Start 2P", cursive;
 }
 
+.desc_1 {
+  font-size: 30px;
+  line-height: 50px;
+  margin: 2vh 0;
+  font-family: "Press Start 2P", cursive;
+}
+
 .desc .numbah {
-  color: blue;
+  color: red;
 }
 
 .table-fill {

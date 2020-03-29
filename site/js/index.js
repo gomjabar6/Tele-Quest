@@ -1,7 +1,7 @@
 const container = document.createElement("div");
 container.setAttribute("class", "container");
 
-var request = new XMLHttpRequest();
+// var request = new XMLHttpRequest();
 var getJSON = function(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
@@ -43,6 +43,35 @@ const json = getJSON(
       document.getElementById("xp8").innerHTML = data[8].expPoints;
       document.getElementById("username9").innerHTML = data[9].username;
       document.getElementById("xp9").innerHTML = data[9].expPoints;
+    }
+  }
+);
+
+var getJSON = function(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.responseType = "raids";
+  xhr.onload = function() {
+    var status = xhr.status;
+    if (status === 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status, xhr.response);
+    }
+  };
+  xhr.send();
+};
+
+const raids = getJSON(
+  "https://telequestbackend.azurewebsites.net/api/Raid/GetRaids",
+  function(err, data) {
+    if (err !== null) {
+      console.log("Something went wrong: " + err);
+    } else {
+      document.getElementById("raidBoss0").innerHTML = data[0].name;
+      document.getElementById("sessionId0").innerHTML = data[0].date;
+      document.getElementById("raidBoss1").innerHTML = data[1].name;
+      document.getElementById("sessionId1").innerHTML = data[1].date;
     }
   }
 );
