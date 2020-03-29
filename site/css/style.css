@@ -1,0 +1,149 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  top: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  -webkit-border-radius: 0;
+}
+
+body,
+html {
+  font-family: "Ubuntu", sans-serif;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.header {
+  height: 50vh;
+  width: 100%;
+  background-image: url("../assets/bg-dung.jpg");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: "Galada", cursive;
+  overflow: hidden;
+  text-align: center;
+}
+
+.header_1 {
+  height: 70vh;
+  width: 100%;
+  background-image: url("../assets/bg-dung.jpg");
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: "Galada", cursive;
+  overflow: hidden;
+  text-align: center;
+}
+
+.header__logo {
+  width: 76px;
+  height: 76px;
+}
+
+.header__title {
+  font-size: 66px;
+  margin: 10vh 4vh 0;
+  font-family: "Press Start 2P", cursive;
+}
+
+.desc {
+  font-size: 30px;
+  line-height: 50px;
+  margin: 5vh 0;
+  font-family: "Press Start 2P", cursive;
+}
+
+.desc_1 {
+  font-size: 30px;
+  line-height: 50px;
+  margin: 2vh 0;
+  font-family: "Press Start 2P", cursive;
+}
+
+.desc .numbah {
+  color: red;
+}
+
+.table-fill {
+  max-width: 800px;
+  padding: 5px;
+  width: 100%;
+  margin: 50px auto;
+  border-collapse: collapse;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -180px;
+}
+
+th {
+  color: #fff;
+  background: #1b1e24;
+  border-bottom: 4px solid #9ea7af;
+  font-size: 23px;
+  font-weight: 100;
+  padding: 24px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+  text-align: center;
+}
+
+th:nth-child(2) {
+  border-right: 1px solid #343a45;
+  border-left: 1px solid #343a45;
+}
+
+th:nth-child(3) {
+  border-right: 1px solid #343a45;
+  border-left: 1px solid #343a45;
+}
+
+tr {
+  border-bottom: 1px solid #c1c3d1;
+  color: #666b85;
+  font-size: 16px;
+  font-weight: normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+td {
+  background: #ffffff;
+  padding: 20px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 300;
+  font-size: 18px;
+  border-right: 1px solid #c1c3d1;
+}
+
+@media (min-width: 480px) {
+  .nav-list {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-right {
+    position: absolute;
+  }
+  .hidden-xs {
+    display: block;
+  }
+  .visible-xs {
+    display: none;
+  }
+}
