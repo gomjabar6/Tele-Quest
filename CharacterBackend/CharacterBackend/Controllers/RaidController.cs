@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CharacterBackend.DBContext;
 using CharacterBackend.DBContext.Models;
 using CharacterBackend.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,13 @@ namespace CharacterBackend.Controllers
         private readonly APIDazeService _apiServie;
         private readonly TeleQuestContext _context;
 
-        public RaidController(TeleQuestContext context, APIDazeService apiServie)
+        public IBackgroundJobClient _backgroundJobs { get; }
+
+        public RaidController(TeleQuestContext context, APIDazeService apiServie, IBackgroundJobClient backgroundJobs)
         {
             _context = context;
             _apiServie = apiServie;
+            _backgroundJobs = backgroundJobs;
         }
 
         [HttpPost]
@@ -38,6 +42,11 @@ namespace CharacterBackend.Controllers
 
             _context.Raid.Add(dbRaid);
             await _context.SaveChangesAsync();
+
+            var jobId = _backgroundJobs.Schedule(
+                    () => _apiServie.BeginRaid(),
+                   (dbRaid.Date.AddSeconds(30) - DateTime.UtcNow)
+                );
 
             return Ok(dbRaid);
         }

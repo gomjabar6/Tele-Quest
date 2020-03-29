@@ -9,12 +9,13 @@ namespace CharacterBackend.DBContext.Models
     {
         public User()
         {
-
-
+            _expPoints = 100;
         }
+
         public Guid Id { get; set; }
         public string PhoneNumber { get; set; }
         public string Username { get; set; }
+        public string SessionKey { get; set; }
 
         private long _expPoints { get; set; }
         public long ExpPoints

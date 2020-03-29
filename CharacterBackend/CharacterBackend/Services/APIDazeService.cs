@@ -13,7 +13,8 @@ namespace CharacterBackend.Services
 {
     public class APIDazeService
     {
-        private string apiDazeEndpoint = "https://api.apidaze.io/68ansd45/calls";
+        private string apiDazeEndpoint = "https://cpaas-api.voipinnovations.com/68ansd45/calls";
+        private string apiDazeEndpointOld = "https://api.apidaze.io/68ansd45/calls";
         private string apiSeceret = "?api_secret=08446328b17a983b50536beeacdc85d2";
 
         public TeleQuestContext _context { get; }
@@ -34,7 +35,7 @@ namespace CharacterBackend.Services
                 values.Add(new KeyValuePair<string, string>(property.Name, property.GetValue(placer, null).ToString()));
             }
 
-            var url = this.apiDazeEndpoint + apiSeceret;
+            var url = this.apiDazeEndpointOld + apiSeceret;
             var client = new HttpClient();
             var response = await client.PostAsync(url, new FormUrlEncodedContent(values));
 
@@ -42,7 +43,7 @@ namespace CharacterBackend.Services
 
         public async Task<List<CallList>> GetActiveCalls()
         {
-            
+
             var url = this.apiDazeEndpoint + apiSeceret;
             var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -69,38 +70,54 @@ namespace CharacterBackend.Services
         {
 
             var values = new List<KeyValuePair<string, string>>();
-            values.Add(new KeyValuePair<string, string>("url", path));
+            //values.Add(new KeyValuePair<string, string>("url", path));
 
-            var url = this.apiDazeEndpoint + "/" + uuid + apiSeceret;
+            var url = this.apiDazeEndpoint + "/" + uuid + "/transfer" + apiSeceret;
             var client = new HttpClient();
             var response = await client.PostAsync(url, new FormUrlEncodedContent(values));
 
             return response;
         }
 
-        public async Task<List<UserRaid>> RefreshUserRaid()
+        public async Task<List<Raid>> RefreshUserRaid()
         {
             var calls = await GetActiveCalls();
 
-            var raid = await _context.Raid.Where(r => r.Date >= DateTime.UtcNow).OrderBy(r => r.Date).Take(1).FirstOrDefaultAsync();
+            List<Raid> activeRaids = new List<Raid>();
 
-            var UserRaids = await _context.UserRaids.Where(ur => ur.RaidId == raid.Id).Include(u => u.User).ToListAsync();
-
-            foreach (var userRaid in UserRaids)
+            foreach (var call in calls)
             {
-                var callUser = calls.Where(c => c.cid_num.Replace("+","") == userRaid.User.PhoneNumber).FirstOrDefault();
-
-                if (callUser == null)
+                var userRaid = _context.UserRaids.Where(ur => ur.CallId == call.uuid).Include(ur => ur.Raid).FirstOrDefault();
+                
+                if (userRaid != null)
                 {
-                    _context.UserRaids.Remove(userRaid);
+                    if (activeRaids.Where(r => r.Id == userRaid.Raid.Id).ToList().Count() == 0)
+                    {
+                        activeRaids.Add(userRaid.Raid);
+                    }
+
                 }
+            }
+
+            foreach (var raid in activeRaids)
+            {
+                var UserRaids = await _context.UserRaids.Where(ur => ur.RaidId == raid.Id).Include(u => u.User).ToListAsync();
+
+                foreach (var userRaid in UserRaids)
+                {
+                    var callUser = calls.Where(c => c.uuid == userRaid.CallId).FirstOrDefault();
+
+                    if (callUser == null)
+                    {
+                        _context.UserRaids.Remove(userRaid);
+                    }
+                }
+
             }
 
             await _context.SaveChangesAsync();
 
-            UserRaids = await _context.UserRaids.Where(ur => ur.RaidId == raid.Id).Include(u => u.User).ToListAsync();
-
-            return UserRaids;
+            return activeRaids;
         }
 
         public async Task EndConference()
@@ -117,21 +134,23 @@ namespace CharacterBackend.Services
 
         public async Task BeginRaid()
         {
+            var activeRaids = await RefreshUserRaid();
+
             var calls = await GetActiveCalls();
             calls = calls.Where(c => c.work_tag == "<conference/>").ToList();
 
-            var raid = _context.Raid.Where(r => r.Date >= DateTime.UtcNow).OrderBy(r => r.Date).Take(1).FirstOrDefault();
-            if (raid == null)
+            var tasks = new List<Task>();
+            foreach (var call in calls)
             {
-                throw new Exception("No next raid!");
+                tasks.Add(new Task(() => this.TransferCall(call.uuid, $"https://telequestbackend.azurewebsites.net/api/APIDazeRaid/GetRaid")));
             }
 
-            foreach (var call in calls){
-                await this.TransferCall(call.uuid, $"https://telequestbackend.azurewebsites.net/api/APIDazeRaid/GetRaid?AppCurrentRaid={raid.Id}");
+            foreach (var task in tasks)
+            {
+                task.Start();
             }
 
+            await Task.WhenAll(tasks);
         }
-
-
     }
 }

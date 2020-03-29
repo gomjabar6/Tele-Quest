@@ -15,6 +15,7 @@ namespace CharacterBackend.DBContext.Models
         public Guid Id { get; set; }
         
         public long damage { get; set; }
+        public string CallId { get; set; }
 
         public Guid UserId { get; set; }
         public User User { get; set; }
